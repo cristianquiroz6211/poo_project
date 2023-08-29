@@ -32,3 +32,4 @@ class BaseDatos():
             return conexion
         except psycopg2.Error as e:
             print("Error ". e)
+            return False
