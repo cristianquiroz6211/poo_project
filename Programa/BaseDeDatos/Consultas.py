@@ -45,3 +45,17 @@ class Consulta():
         except psycopg2.Error as e:
             print("Error al consultar usuario ", e)
             return False
+
+    #Metodo consultarRol
+    def consultarRol(sel,conexion, usuario,contrasena):
+        try:
+            with conexion.cursor() as cursor:
+                consulta = 'SELECT "IdRol" FROM "Usuarios" WHERE "Usuario"=%s AND "Contrasena"=%s;'
+                cursor.execute(consulta,(usuario,contrasena))
+                if cursor.rowcount > 0:
+                    for rol in cursor.fetchall():
+                        return rol[0]
+                else:
+                    print("No hay registros")
+        except psycopg2.Error as e:
+            print("Error al consultar rol ", e)

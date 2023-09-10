@@ -16,7 +16,6 @@ def limpiarPantalla():
 
 # Funcion para mostrar el menu de administrador general
 def menuAG():
-    limpiarPantalla()
     print("************************************")
     print("*                                  *")
     print("*        ADMINISTRADOR GENERAL     *")
@@ -32,21 +31,21 @@ def menuAG():
     print("* 7. Salir                         *")
     print("*                                  *")
     print("************************************")
-
-# Iniciar el programa
-menuAG()
-opcion = int(input("Ingrese una opcion: "))
-while opcion != 4:
-    if opcion == 1:
-        crearUsuarios()
-    elif opcion == 2:
-        eliminarUsuarios()
-    elif opcion == 3:
-        crearEmpresa()
-    elif opcion == 4:
-        eliminarEmpresa()
-    else:
-        print("Opcion incorrecta")
+    opcion = int(input("Ingrese una opcion: "))
+    while opcion != 4:
+        if opcion == 1:
+            crearUsuarios()
+        elif opcion == 2:
+            eliminarUsuarios()
+        elif opcion == 3:
+            crearEmpresa()
+        elif opcion == 4:
+            eliminarEmpresa()
+        else:
+            print("Opcion incorrecta")
     input("Presione una tecla para continuar...")
     menuAG()
     opcion = int(input("Ingrese una opcion: "))
+# Iniciar el programa
+
+
