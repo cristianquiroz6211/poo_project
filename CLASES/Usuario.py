@@ -15,3 +15,4 @@ class Usuario:
         self.numerocontacto = numerocontacto
         self.RolUsuario = RolUsuario
 
+

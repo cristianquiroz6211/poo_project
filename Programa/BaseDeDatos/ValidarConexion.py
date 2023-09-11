@@ -5,6 +5,7 @@ from AdminGeneral.IndexAG import menuAG
 from AdminLocal.IndexAL import menuAL
 from Cocinero.IndexC import menuC
 from Mesero.IndexM import menuM
+from Cocinero.crearcocinero import Cocinero
 
 
 #conexion con la base de datos
@@ -144,8 +145,12 @@ def eliminarEmpresa():
 
 #Metodo Crear Cocineros
 def crearCocineros():
-    pass
+    #Se llama a la clase cocinero 
+    cocinero = Cocinero()
+    cocinero.crear_cocinero()
+    
 
+    
 #Metodo Crear Productos
 def crearProductos():
     pass
