@@ -1,0 +1,230 @@
+-- Database: FoodAlfa.V2
+
+-- DROP DATABASE IF EXISTS "FoodAlfa.V2";
+
+CREATE DATABASE "FoodAlfa.V2"
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Spanish_Chile.1252'
+    LC_CTYPE = 'Spanish_Chile.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+-- Table: public.Empresas
+
+-- DROP TABLE IF EXISTS public."Empresas";
+
+CREATE TABLE IF NOT EXISTS public."Empresas"
+(
+    "IdEmpresa" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Empresa" text COLLATE pg_catalog."default" NOT NULL,
+    "Identificacion" bigint NOT NULL,
+    "IdLocal" bigint NOT NULL,
+    CONSTRAINT "Empresas_pkey" PRIMARY KEY ("IdEmpresa"),
+    CONSTRAINT "IdLocal" FOREIGN KEY ("IdLocal")
+        REFERENCES public."Empresas" ("IdEmpresa") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Empresas"
+    OWNER to postgres;
+
+-- Table: public.Estado
+
+-- DROP TABLE IF EXISTS public."Estado";
+
+CREATE TABLE IF NOT EXISTS public."Estado"
+(
+    "IdEstado" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Estado" text COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "EstadoPedido_pkey" PRIMARY KEY ("IdEstado")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Estado"
+    OWNER to postgres;
+
+-- Table: public.Locales
+
+-- DROP TABLE IF EXISTS public."Locales";
+
+CREATE TABLE IF NOT EXISTS public."Locales"
+(
+    "IdLocal" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Local" bigint,
+    CONSTRAINT "Locales_pkey" PRIMARY KEY ("IdLocal")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Locales"
+    OWNER to postgres;
+
+-- Table: public.Mesas
+
+-- DROP TABLE IF EXISTS public."Mesas";
+
+CREATE TABLE IF NOT EXISTS public."Mesas"
+(
+    "IdMesa" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Mesas" bigint,
+    CONSTRAINT "Mesas_pkey" PRIMARY KEY ("IdMesa")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Mesas"
+    OWNER to postgres;
+
+-- Table: public.Pedidos
+
+-- DROP TABLE IF EXISTS public."Pedidos";
+
+CREATE TABLE IF NOT EXISTS public."Pedidos"
+(
+    "IdPedido" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Precio" bigint,
+    "FechaYHora" timestamp with time zone,
+    "IdMesa" bigint NOT NULL,
+    "IdEstado" bigint NOT NULL,
+    "IdMesero" bigint NOT NULL,
+    CONSTRAINT "Pedidos_pkey" PRIMARY KEY ("IdPedido"),
+    CONSTRAINT "IdEstado" FOREIGN KEY ("IdEstado")
+        REFERENCES public."Estado" ("IdEstado") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "IdMesa" FOREIGN KEY ("IdMesa")
+        REFERENCES public."Mesas" ("IdMesa") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "IdMesero" FOREIGN KEY ("IdMesero")
+        REFERENCES public."Usuarios" ("IdUsuario") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Pedidos"
+    OWNER to postgres;
+
+-- Table: public.Platos
+
+-- DROP TABLE IF EXISTS public."Platos";
+
+CREATE TABLE IF NOT EXISTS public."Platos"
+(
+    "IdPlato" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "NombrePlato" text COLLATE pg_catalog."default" NOT NULL,
+    "Precio" bigint NOT NULL,
+    "IdEmpresa" bigint,
+    CONSTRAINT "Platos_pkey" PRIMARY KEY ("IdPlato"),
+    CONSTRAINT "IdEmpresa" FOREIGN KEY ("IdEmpresa")
+        REFERENCES public."Empresas" ("IdEmpresa") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Platos"
+    OWNER to postgres;
+
+-- Table: public.Roles
+
+-- DROP TABLE IF EXISTS public."Roles";
+
+CREATE TABLE IF NOT EXISTS public."Roles"
+(
+    "IdRol" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( CYCLE INCREMENT 1 START 1 MINVALUE 0 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Rol" text COLLATE pg_catalog."default",
+    CONSTRAINT "Roles_pkey" PRIMARY KEY ("IdRol")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Roles"
+    OWNER to postgres;
+
+-- Table: public.SubPedido
+
+-- DROP TABLE IF EXISTS public."SubPedido";
+
+CREATE TABLE IF NOT EXISTS public."SubPedido"
+(
+    "IdSubPedido" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Cantidad" bigint NOT NULL,
+    "Notas" text COLLATE pg_catalog."default" NOT NULL,
+    "IdPlato" bigint NOT NULL,
+    "IdEstado" bigint NOT NULL,
+    "IdPedido" bigint NOT NULL,
+    CONSTRAINT "SubPedido_pkey" PRIMARY KEY ("IdSubPedido"),
+    CONSTRAINT "IdEstado" FOREIGN KEY ("IdEstado")
+        REFERENCES public."Estado" ("IdEstado") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "IdPedido" FOREIGN KEY ("IdPedido")
+        REFERENCES public."Pedidos" ("IdPedido") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "IdPlato" FOREIGN KEY ("IdPlato")
+        REFERENCES public."Platos" ("IdPlato") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."SubPedido"
+    OWNER to postgres;
+-- Table: public.Usuarios
+
+-- DROP TABLE IF EXISTS public."Usuarios";
+
+CREATE TABLE IF NOT EXISTS public."Usuarios"
+(
+    "IdUsuario" bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( CYCLE INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    "Nombre" text COLLATE pg_catalog."default" NOT NULL,
+    "Usuario" text COLLATE pg_catalog."default" NOT NULL,
+    "Contrasena" text COLLATE pg_catalog."default" NOT NULL,
+    "Telefono" text COLLATE pg_catalog."default" NOT NULL,
+    "Estado" boolean NOT NULL,
+    "IdRol" bigint NOT NULL,
+    "IdEmpresa" bigint NOT NULL,
+    CONSTRAINT "Usuarios_pkey" PRIMARY KEY ("IdUsuario"),
+    CONSTRAINT "Usuario" UNIQUE ("Usuario")
+        INCLUDE("Usuario"),
+    CONSTRAINT "IdEmpresa" FOREIGN KEY ("IdEmpresa")
+        REFERENCES public."Empresas" ("IdEmpresa") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "IdRol" FOREIGN KEY ("IdRol")
+        REFERENCES public."Roles" ("IdRol") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Usuarios"
+    OWNER to postgres;
+
+
+
+
