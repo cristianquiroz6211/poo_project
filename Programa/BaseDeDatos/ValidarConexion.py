@@ -6,6 +6,8 @@ from AdminLocal.IndexAL import menuAL
 from Cocinero.IndexC import menuC
 from Mesero.IndexM import menuM
 from Cocinero.crearcocinero import Cocinero
+from Empresa.crearEmpresa  import GestionEmpresas
+from Usuario.dasactivarUsuario  import inactivo 
 
 
 #conexion con la base de datos
@@ -133,11 +135,27 @@ def crearUsuarios():
 
 #Metodo Eliminar usuarios
 def eliminarUsuarios():
-    pass
+    IdUsuario = int(input("Ingrese el Id del usuario que desea desactivar: "))
+
+    if inactivo(conexion.Conectar(),IdUsuario):
+        print("Usuario desactivado exitosamente")
+    else:
+        print("Hubo un error al desactivar el usuario")
 
 #Metodo Crear Empresa
-def crearEmpresa():
-    pass
+def crearEmpresa(): #CrearEmpresa es el local comercial
+    # Valores para crear la empresa
+    id_empresa = int(input("Ingrese el ID de la empresa: "))
+    nombre_empresa = input("Ingrese el nombre de la empresa:")
+    identificacion = int(input("Ingrese la identificación de la empresa: "))
+    id_local =  int(input("ID del local al que pertenece la empresa"))
+    #Se llama a la clase empresa
+    empresa = GestionEmpresas(conexion.Conectar())
+    if empresa.crear_empresa(id_empresa, nombre_empresa, identificacion, id_local):
+        print("Empresa creada exitosamente")
+    else:
+        print("Hubo un error al crear la empresa")
+  
 
 #Metodo Eliminar Empresa
 def eliminarEmpresa():
@@ -145,10 +163,7 @@ def eliminarEmpresa():
 
 #Metodo Crear Cocineros
 def crearCocineros():
-    #Se llama a la clase cocinero 
-    cocinero = Cocinero()
-    cocinero.crear_cocinero()
-    
+    pass
 
     
 #Metodo Crear Productos
