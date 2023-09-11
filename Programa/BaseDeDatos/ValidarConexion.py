@@ -1,7 +1,11 @@
+import os
 from BaseDeDatos.conexionDB import *
 from BaseDeDatos.Consultas import *
-import os
 from AdminGeneral.IndexAG import menuAG
+from AdminLocal.IndexAL import menuAL
+from Cocinero.IndexC import menuC
+from Mesero.IndexM import menuM
+
 
 #conexion con la base de datos
 conexion = BaseDatos("localhost",5432,"postgres","0000","FoodAlfa")
@@ -22,19 +26,6 @@ usuario = Consulta(nombre,usuarioN,contrasena,telefono,estado,idRol,idEmpresa)
 def limpiarPantalla():
     os.system("cls")
 
-#Metodo para crear usuarios
-def crearUsuarios():
-    nombre = input("Ingrese el nombre: ")
-    usuarioN = input("Ingrese el usuario: ")
-    contrasena = input("Ingrese la contraseña: ")
-    telefono = input("Ingrese el telefono: ")
-    print("Tipos de usuario: \n1. AdministradorLocal \n2. Mesero \n3. Cocinero \n4. AdministradorGeneral")
-    idRol = input("Ingrese el tipo de usuario: ")
-    idEmpresa = input("Ingrese el id de la empresa: ")
-    estado = True
-    usuario.crearUsuarios(conexion.Conectar(),nombre,usuarioN,contrasena,telefono,estado,idRol,idEmpresa)
-
-
 #Metodo para consultar credenciales
 def login():
     usuarioN = input("Ingrese el usuario: ")
@@ -43,20 +34,101 @@ def login():
         usuario.idRol = usuario.consultarRol(conexion.Conectar(),usuarioN,contrasena)
         if usuario.idRol == 1:
             limpiarPantalla()
-            print("Bienvenido AdministradorLocal")
+            print("Bienvenido AdministradorGeneral ")
             menuAG()
+            opcion = int(input("Ingrese una opcion: "))
+            while opcion != 4:
+                if opcion == 1:
+                    crearUsuarios()
+                elif opcion == 2:
+                    eliminarUsuarios()
+                elif opcion == 3:
+                    crearEmpresa()
+                elif opcion == 4:
+                    eliminarEmpresa()
+                elif opcion == 5:
+                    print("Adios")
+                    break
+                else:
+                    print("Opcion incorrecta")
+                input("Presione una tecla para continuar...")
+                menuAG()
+                opcion = int(input("Ingrese una opcion: "))
         elif usuario.idRol == 2:
             limpiarPantalla()
-            print("Bienvenido Mesero")
+            print("Bienvenido AdministradorLocal")
+            menuAL()
+            opcion = int(input("Ingrese una opcion: "))
+            while opcion != 5:
+                if opcion == 1:
+                    crearCocineros()
+                elif opcion == 2:
+                    eliminarUsuarios()
+                elif opcion == 3:
+                    crearProductos()
+                elif opcion == 4:
+                    HistorialVentasLocal()
+                elif opcion == 5:
+                    print("Adios")
+                    break
+                else:
+                    print("Opcion incorrecta")
+                input("Presione una tecla para continuar...")
+                menuAL()
+                opcion = int(input("Ingrese una opcion: "))
         elif usuario.idRol == 3:
             limpiarPantalla()
             print("Bienvenido Cocinero")
+            menuC()
+            opcion = int(input("Ingrese una opcion: "))
+            while opcion != 3:
+                if opcion == 1:
+                    verPedidos()
+                elif opcion == 2:
+                    confirmarPedidos()
+                elif opcion == 3:
+                    print("Adios")
+                    break
+                else:
+                    print("Opcion incorrecta")
+                input("Presione una tecla para continuar...")
+                menuC()
+                opcion = int(input("Ingrese una opcion: "))
         elif usuario.idRol == 4:
             limpiarPantalla()
-            print("Bienvenido AdministradorGeneral")
+            print("Bienvenido Mesero")
+            menuM()
+            opcion = int(input("Ingrese una opcion: "))
+            while opcion != 4:
+                if opcion == 1:
+                    tomarPedidos()
+                elif opcion == 2:
+                    confirmarPedidos()
+                elif opcion == 3:
+                    pagarPedidos()
+                elif opcion == 4:
+                    print("Adios")
+                    break
+                else:
+                    print("Opcion incorrecta")
+                input("Presione una tecla para continuar...")
+                menuM()
+                opcion = int(input("Ingrese una opcion: "))
 
     else:
         print("Usuario o contraseña incorrecta")
+
+#Metodo para crear usuarios
+def crearUsuarios():
+    nombre = input("Ingrese el nombre: ")
+    usuarioN = input("Ingrese el usuario: ")
+    contrasena = input("Ingrese la contraseña: ")
+    telefono = input("Ingrese el telefono: ")
+    print("Tipos de usuario: \n1. AdministradorGeneral  \n2. Administradorlocal \n3. Cocinero \n4. Mesero")
+    idRol = input("Ingrese el tipo de usuario: ")
+    idEmpresa = input("Ingrese el id de la empresa: ")
+    estado = True
+    usuario.crearUsuarios(conexion.Conectar(),nombre,usuarioN,contrasena,telefono,estado,idRol,idEmpresa)
 
 #Metodo Eliminar usuarios
 def eliminarUsuarios():
@@ -64,17 +136,36 @@ def eliminarUsuarios():
 
 #Metodo Crear Empresa
 def crearEmpresa():
-    nombre = input("Ingrese el nombre de la empresa: ")
-    direccion = input("Ingrese la direccion de la empresa: ")
-    telefono = input("Ingrese el telefono de la empresa: ")
-    usuario.crearEmpresa(conexion.Conectar(),nombre,direccion,telefono)
+    pass
 
 #Metodo Eliminar Empresa
 def eliminarEmpresa():
     pass
 
+#Metodo Crear Cocineros
+def crearCocineros():
+    pass
 
+#Metodo Crear Productos
+def crearProductos():
+    pass
 
+#Metodo Historial de ventas local
+def HistorialVentasLocal():
+    pass
 
+#Metodo Ver pedidos
+def verPedidos():
+    pass
 
-    
+#Metodo Confirmar pedidos
+def confirmarPedidos():
+    pass
+
+#Metodo Tomar pedidos
+def tomarPedidos():
+    pass
+
+#Metodo Pagar pedidos
+def pagarPedidos():
+    pass

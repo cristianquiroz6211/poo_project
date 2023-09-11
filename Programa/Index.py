@@ -1,13 +1,4 @@
-# Desarrollar un programa que presente de morma grafica por consola un menu de login; 
-# el cual debe tener las siguientes opciones: usuario y contraseña, si el usuario y la contraseña son incorrectos
-# debe mostrar un mensaje de error y volver a pedir el usuario y la contraseña, si el usuario y la contraseña son correctos
-# debe mostrar un mensaje de bienvenida y salir del programa.
-
-# Importamos la libreria os para poder limpiar la pantalla
-
 import os
-# Importamos archivo de conexion a la base de datos
-
 from BaseDeDatos.ValidarConexion import *
 
 # Funcion para limpiar la pantalla
