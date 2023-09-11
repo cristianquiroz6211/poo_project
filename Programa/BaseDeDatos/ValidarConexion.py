@@ -11,7 +11,7 @@ from Usuario.dasactivarUsuario  import inactivo
 
 
 #conexion con la base de datos
-conexion = BaseDatos("localhost",5432,"postgres","0000","FoodAlfa")
+conexion = BaseDatos("localhost",5432,"postgres","0000","FoodAlfa.V2")
 
 #Variables de las consultas de la base de datos
 nombre = ""
