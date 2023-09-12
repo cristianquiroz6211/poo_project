@@ -1,3 +1,4 @@
+
 # Funcion para mostrar el menu del administrador local
 def menuAL():
     print("************************************")
