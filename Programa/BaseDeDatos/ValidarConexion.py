@@ -5,7 +5,7 @@ from AdminGeneral.IndexAG import menuAG
 from AdminLocal.IndexAL import menuAL
 from Cocinero.IndexC import menuC
 from Mesero.IndexM import menuM
-from Cocinero.crearcocinero import Cocinero
+from Cocinero.crearcocinero import *
 from Empresa.crearEmpresa  import GestionEmpresas
 from Usuario.dasactivarUsuario  import inactivo 
 
@@ -73,6 +73,21 @@ def login():
             limpiarPantalla()
             print("Bienvenido AdministradorLocal")
             menuAL()
+            opcion = int(input("Ingrese una opcion: "))
+            while opcion != 5:
+                if opcion == 1:
+                    crear_cocinero(conexion.Conectar())
+                    break
+                elif opcion == 2:
+                    usuarioN = input("Ingrese el usuario: ")
+                    estado = False
+                    DesactivarCocinero(conexion.Conectar(),usuarioN,estado)
+                    break
+                elif opcion == 3:
+                   pass
+                elif opcion == 4:
+                    pass
+
         elif usuario.idRol == 4:
             limpiarPantalla()
             print("Bienvenido Mesero")

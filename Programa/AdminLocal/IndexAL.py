@@ -1,4 +1,4 @@
-
+from Cocinero.crearcocinero import *
 # Funcion para mostrar el menu del administrador local
 def menuAL():
     print("************************************")
@@ -14,5 +14,3 @@ def menuAL():
     print("* 5. Salir                         *")
     print("*                                  *")
     print("************************************")
-
-
