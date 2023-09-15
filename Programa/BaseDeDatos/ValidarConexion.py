@@ -8,10 +8,11 @@ from Mesero.IndexM import menuM
 from Cocinero.crearcocinero import *
 from Empresa.crearEmpresa  import GestionEmpresas
 from Usuario.dasactivarUsuario  import inactivo 
+from plataformaPedidos.menuPedidos import *
 
 
 #conexion con la base de datos
-conexion = BaseDatos("localhost",5432,"postgres","0000","FoodAlfa.V3")
+conexion = BaseDatos("localhost",5432,"postgres","2919","FoodAlfa.V3")
 
 #Variables de las consultas de la base de datos
 id = ""
@@ -94,6 +95,9 @@ def login():
             menuM()
     else:
         print("Usuario o contraseña incorrecta")
+
+def mostrarmeseros():
+    mostrarMeserosDisponibles(conexion.Conectar())
 
 #Metodo para crear usuarios
 def crearUsuarios():

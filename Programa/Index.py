@@ -10,25 +10,27 @@ def limpiarPantalla():
 
 def menuLogin():
     limpiarPantalla()
-    print("************************************")
-    print("*                                  *")
-    print("*             LOGIN                *")
-    print("*                                  *")
-    print("************************************")
-    print("*                                  *")
-    print("* 1. Ingresar Usuario y Contraseña *")
-    print("* 2. Salir                         *")
-    print("*                                  *")
-    print("************************************")
+    print("****************************************")
+    print("*                                      *")
+    print("*             LOGIN                    *")
+    print("*                                      *")
+    print("****************************************")
+    print("* 1. Ingresar Usuario y Contraseña     *")
+    print("* 2.Ingresar a la plataforma de pedidos*")
+    print("* 3. Salir                             *")
+    print("****************************************")
 
 # Funcion para validar el usuario y la contraseña
 
 menuLogin()
 opcion = int(input("Ingrese una opcion: "))
-while opcion != 3:
+while opcion != 4:
     if opcion == 1:
         login()
-    elif opcion == 2:
+    if opcion == 2:
+        mostrarmeseros()
+        
+    elif opcion == 3:
         print("Adios")
         break
     else:
