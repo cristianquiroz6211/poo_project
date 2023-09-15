@@ -1,5 +1,7 @@
 import os
-from BaseDeDatos.ValidarConexion import *
+from login.loginUsuarios.loginPrincipal import *
+from login.plataformaPedidos.menuPedidos import *
+
 
 # Funcion para limpiar la pantalla
 
@@ -28,13 +30,13 @@ while opcion != 4:
     if opcion == 1:
         login()
     if opcion == 2:
-        mostrarmeseros()
-        
+         mostrarMeserosYmesasActivos(conexion.Conectar())
     elif opcion == 3:
         print("Adios")
         break
     else:
         print("Opcion incorrecta")
+
     input("Presione una tecla para continuar...")
     menuLogin()
     opcion = int(input("Ingrese una opcion: "))

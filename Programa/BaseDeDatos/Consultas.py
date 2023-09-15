@@ -106,11 +106,11 @@ class ConsultaUsuario():
             return False
     
     #Metodo CrearEmpresa
-    def crearEmpresa(self,conexion,empresa,identificacion,estado,IdLocal):
+    def crearEmpresa(self,conexion,empresa,identificacion,IdLocal,estado):
         try:
             with conexion.cursor() as cursor:
-                consulta = 'INSERT INTO "Empresas" ("Empresa","Identificacion","Estado","IdLocal") VALUES(%s,%s,%s,%s);'
-                cursor.execute(consulta,(empresa,identificacion,estado,IdLocal))
+                consulta = 'INSERT INTO "Empresas" ("Empresa","Identificacion","IdLocal","Estado") VALUES(%s,%s,%s,%s);'
+                cursor.execute(consulta,(empresa,identificacion,IdLocal,estado))
             conexion.commit()
             return True
         except psycopg2.Error as e:
