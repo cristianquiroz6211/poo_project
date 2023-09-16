@@ -26,7 +26,7 @@ def menuLogin():
 
 menuLogin()
 opcion = int(input("Ingrese una opcion: "))
-while opcion != 4:
+while opcion != 3:
     if opcion == 1:
         login()
     if opcion == 2:
