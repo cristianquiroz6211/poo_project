@@ -34,3 +34,11 @@ def loginAdminLocal():
            pass
         elif opcion == 4:
             pass
+        elif opcion == 5:
+            print("Adios")
+            break
+        else:
+            print("Opcion incorrecta")
+        input("Presione una tecla para continuar...")
+        menuAL()
+        opcion = int(input("Ingrese una opcion: "))

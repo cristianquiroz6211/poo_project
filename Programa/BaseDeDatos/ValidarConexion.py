@@ -4,7 +4,7 @@ from BaseDeDatos.Consultas import *
 from Cocinero.crearcocinero import *
 
 #conexion con la base de datos
-conexion = BaseDatos("localhost",5432,"postgres","0000","FoodAlfa.V3")
+conexion = BaseDatos("localhost",5432,"postgres","0000","FoodAlfa.V4")
 
 #Variables de las consultas de la base de datos
 id = ""

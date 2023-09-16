@@ -28,7 +28,7 @@ def loginAdminGeneral():
     print("Bienvenido AdministradorGeneral ")
     menuAG()
     opcion = int(input("Ingrese una opcion: "))
-    while opcion != 7:
+    while opcion != 9:
         if opcion == 1:
             CRUDUsuario.crearUsuarios()
         elif opcion == 2:
