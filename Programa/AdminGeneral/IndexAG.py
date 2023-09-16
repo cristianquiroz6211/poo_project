@@ -48,6 +48,7 @@ def loginAdminGeneral():
         elif opcion == 9:
             print("Adios")
             break
+        
         else:
             print("Opcion incorrecta")
         input("Presione una tecla para continuar...")
