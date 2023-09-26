@@ -2,7 +2,7 @@ import os
 from BaseDeDatos.ValidarConexion import *
 
 # Funcion para limpiar la pantalla
-#hola
+
 def limpiarPantalla():
     os.system("cls")
 
