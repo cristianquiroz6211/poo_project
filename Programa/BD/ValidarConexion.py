@@ -1,6 +1,6 @@
 import os
-from BaseDeDatos.conexionDB import *
-from BaseDeDatos.Consultas import *
+from BD.conexionDB import *
+from BD.Consultas import *
 from AdminGeneral.IndexAG import menuAG
 from AdminLocal.IndexAL import menuAL
 from Cocinero.IndexC import menuC
