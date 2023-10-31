@@ -15,6 +15,6 @@ class ControladorRestaurante:
 
     def obtener_restaurantes(self):
         return self.modelo.obtener_restaurantes()
-""" 
-prueba = ControladorRestaurante()
-print(prueba.obtener_restaurantes()) """
+    def obtener_platos_por_empresa(self, id_empresa):
+        return self.modelo.obtener_platos_por_empresa(id_empresa)
+

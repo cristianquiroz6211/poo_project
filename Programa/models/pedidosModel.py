@@ -20,4 +20,15 @@ class Pedidos:
         except Exception as e:
             print(f"Error al autenticar: {e}")
             return False
-        return ["Restaurante A", "Restaurante B", "Restaurante C"]  # Ejemplo de datos
+    def obtener_platos_por_empresa(self, id_empresa):
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute('SELECT "IdPlato", "NombrePlato" FROM "Platos" WHERE "IdEmpresa" = %s', (id_empresa,))
+            user_data = cursor.fetchall()
+            platos = [{"id": row[0], "nombre": row[1]} for row in user_data]
+            
+            return platos
+            cursor.close()
+        except Exception as e:
+            print(f"Error al obtener platos: {e}")
+            return False

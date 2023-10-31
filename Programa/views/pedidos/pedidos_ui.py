@@ -27,8 +27,8 @@ class Ui_pedidos(object):
         pedidos.setMinimumSize(QtCore.QSize(817, 523))
         self.centralwidget = QtWidgets.QWidget(pedidos)
         self.centralwidget.setStyleSheet("QWidget{\n"
-"background:white;\n"
-"}")
+        "background:white;\n"
+        "}")
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -158,12 +158,13 @@ class Ui_pedidos(object):
         self.restaurante.setSizePolicy(sizePolicy)
         self.restaurante.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.controlador_restaurante = ControladorRestaurante()
-
+        
         # Configuramos el ComboBox de restaurantes
         restaurantes = self.controlador_restaurante.obtener_restaurantes()
         self.restaurante.addItems(restaurantes)
         pedidos.setObjectName("pedidos")
         self.gridLayout.addWidget(self.restaurante, 1, 0, 1, 1)
+        
         self.producto = QtWidgets.QComboBox(self.item)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -172,6 +173,7 @@ class Ui_pedidos(object):
         self.producto.setSizePolicy(sizePolicy)
         self.producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.producto.setObjectName("producto")
+        self.restaurante.currentIndexChanged.connect(self.actualizar_productos)
         self.gridLayout.addWidget(self.producto, 1, 1, 1, 1)
         self.lineEdit = QtWidgets.QLineEdit(self.item)
         self.lineEdit.setObjectName("lineEdit")
@@ -195,6 +197,7 @@ class Ui_pedidos(object):
         self.submit.setObjectName("submit")
         self.verticalLayout.addWidget(self.submit)
         self.horizontalLayout.addWidget(self.frame)
+        
         pedidos.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(pedidos)
@@ -210,6 +213,19 @@ class Ui_pedidos(object):
         self.label_2.setText(_translate("pedidos", "Seleccione restaurante"))
         self.label_3.setText(_translate("pedidos", "Seleccione producto"))
         self.submit.setText(_translate("pedidos", "Enviar Pedido"))
+        
+    def actualizar_productos(self):
+        # Obtiene el índice de la empresa seleccionada
+        index = self.restaurante.currentIndex()+1
+       
+        # Obtiene los platos correspondientes
+        platos = self.controlador_restaurante.obtener_platos_por_empresa(index)
+        # Limpia el ComboBox de productos
+        self.producto.clear()
+
+        # Llena el ComboBox de productos con los platos
+        for plato in platos:
+                self.producto.addItem(plato["nombre"], userData=plato["id"])
 
 
 if __name__ == "__main__":
