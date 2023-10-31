@@ -15,6 +15,7 @@ ruta_proyecto = os.path.abspath(os.path.join(os.path.dirname(__file__), '...'))
 
 # Añadir la ruta al directorio del proyecto al sys.path
 sys.path.append(ruta_proyecto)
+#cOREGIR CANBIOS
 
 from controllers.pedidosController import ControladorRestaurante
 
