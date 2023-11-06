@@ -18,8 +18,8 @@ class Ui_pedidos(object):
         pedidos.setMinimumSize(QtCore.QSize(817, 523))
         self.centralwidget = QtWidgets.QWidget(pedidos)
         self.centralwidget.setStyleSheet("QWidget{\n"
-"background:white;\n"
-"}")
+    "background:white;\n"
+    "}")
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -30,7 +30,7 @@ class Ui_pedidos(object):
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("../imagen fondo-01_Mesa de trabajo 1.png"))
+        self.label.setPixmap(QtGui.QPixmap("views/pedidos\\../imagen fondo-01_Mesa de trabajo 1.png"))
         self.label.setScaledContents(True)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setWordWrap(True)
@@ -216,6 +216,7 @@ class Ui_pedidos(object):
         self.label_3.setText(_translate("pedidos", "Seleccione producto"))
         self.pushButton.setText(_translate("pedidos", "Agregar Nuevo Pedido"))
         self.submit.setText(_translate("pedidos", "Enviar Pedido"))
+    
     def agregar_nuevo_pedido(self):
         # Crea un nuevo QFrame para el pedido
         nuevo_pedido = QtWidgets.QFrame(self.scrollAreaWidgetContents)
