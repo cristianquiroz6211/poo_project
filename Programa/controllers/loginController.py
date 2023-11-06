@@ -32,7 +32,7 @@ class LoginController:
         self.pedidos_window.show()
 
     def abrir_admin_local(self):
-        from views.Usuarios.Usuarios_ui import UsersView
+        from views.Usuarios.AdministradorLocal_ui import UsersView
         self.admin_local_window = QtWidgets.QMainWindow()
         ui = UsersView()
         ui.setupUi(self.admin_local_window)
