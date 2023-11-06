@@ -11,12 +11,14 @@ sys.path.append(ruta_proyecto)
 
 from views.Usuarios.AdministradorGeneral_ui import AdministradorGeneralView
 from views.Usuarios.AdministradorLocal_ui import AdministradorLocalView
+from views.Usuarios.Cocinero_ui import CocineroView
 from models.usuariosModel import UsuariosModel
 
 class UsersController:
     def __init__(self):
         self.viewAdminGeneral = AdministradorGeneralView()
         self.viewAdminLocal = AdministradorLocalView()
+        self.viewCocinero = CocineroView()
         self.ModelUser = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
 
     def show(self, username, password):
@@ -25,11 +27,11 @@ class UsersController:
             self.viewAdminGeneral.show()
         elif rol == 2:
             self.viewAdminLocal.show()
+        elif rol == 3:
+            self.viewCocinero.show()
         else:
-            print("No se reconoce el rol del usuario")
+            print("Rol no encontrado")
 
-
-    
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
