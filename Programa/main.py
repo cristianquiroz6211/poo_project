@@ -1,9 +1,8 @@
 import sys
 from PyQt5 import QtWidgets
 from views.login_ui import Ui_IniciarSesion
-from views.pedidos.pedidos_ui import Ui_pedidos
+from views.pedidos.pedidos_uicopy import Ui_pedidos
 from controllers.loginController import LoginController
-from views.Usuarios.Usuarios_ui import UsersView
 from controllers.UsuariosController import UsersController
 
 class PedidosWindow(QtWidgets.QMainWindow):
@@ -21,14 +20,15 @@ class LoginApp(QtWidgets.QMainWindow):
         self.ui.submit.clicked.connect(self.login)
         self.ui.checkBox.stateChanged.connect(lambda: self.controller.toggleMostrarContrasena(self.ui))        
         self.ui.ir_a_pedidos.clicked.connect(self.redirect_to_pedidos)  # Cambia esta línea
+        #LLamar el controlador de usuarios
+        self.UserController = UsersController()
 
     def login(self):
         username = self.ui.usuario.text()
         password = self.ui.contrasena.text()
 
         if self.controller.authenticate(username, password):
-            self.users_controller = UsersController()
-            self.users_controller.show()
+            self.UserController.show(username, password)
             self.close()
         else:
             print("Credenciales incorrectas")
@@ -40,7 +40,7 @@ class LoginApp(QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-
+    
     window = LoginApp()
     window.show()
     sys.exit(app.exec_())
