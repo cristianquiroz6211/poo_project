@@ -11,7 +11,7 @@ from models.pedidosModel import Pedidos
 
 class ControladorRestaurante:
     def __init__(self):
-        self.modelo = Pedidos(dbname="poo", user="postgres", password="0000", host="localhost", port=5432)
+        self.modelo = Pedidos(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
 
     def obtener_restaurantes(self):
         return self.modelo.obtener_restaurantes()

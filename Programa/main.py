@@ -3,19 +3,21 @@ from PyQt5 import QtWidgets
 from views.login_ui import Ui_IniciarSesion
 from views.pedidos.pedidos_ui import Ui_pedidos
 from controllers.loginController import LoginController
+from views.Usuarios.Usuarios_ui import UsersView
+from controllers.UsuariosController import UsersController
 
 class PedidosWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_pedidos()
         self.ui.setupUi(self)
-        
+
 class LoginApp(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_IniciarSesion()
         self.ui.setupUi(self)
-        self.controller = LoginController(dbname="poo", user="postgres", password="0000", host="localhost", port=5432)
+        self.controller = LoginController(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
         self.ui.submit.clicked.connect(self.login)
         self.ui.checkBox.stateChanged.connect(lambda: self.controller.toggleMostrarContrasena(self.ui))        
         self.ui.ir_a_pedidos.clicked.connect(self.redirect_to_pedidos)  # Cambia esta línea
@@ -25,7 +27,9 @@ class LoginApp(QtWidgets.QMainWindow):
         password = self.ui.contrasena.text()
 
         if self.controller.authenticate(username, password):
-            print("Inicio de sesión exitoso")
+            self.users_controller = UsersController()
+            self.users_controller.show()
+            self.close()
         else:
             print("Credenciales incorrectas")
             

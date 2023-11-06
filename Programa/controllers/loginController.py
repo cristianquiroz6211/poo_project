@@ -30,3 +30,17 @@ class LoginController:
         ui = Ui_MainWindow()
         ui.setupUi(self.pedidos_window)
         self.pedidos_window.show()
+
+    def abrir_admin_local(self):
+        from views.Usuarios.Usuarios_ui import UsersView
+        self.admin_local_window = QtWidgets.QMainWindow()
+        ui = UsersView()
+        ui.setupUi(self.admin_local_window)
+        self.admin_local_window.show()
+    
+    def logout(self):
+        from views.login_ui import Ui_IniciarSesion
+        self.login_window = QtWidgets.QMainWindow()
+        ui = Ui_IniciarSesion()
+        ui.setupUi(self.login_window)
+        self.login_window.show()
