@@ -68,13 +68,22 @@ class Ui_pedidos(object):
 "#frame{\n"
 "padding:30px;\n"
 "}\n"
-"#submit{\n"
+"#submit,#agregarPedido{\n"
 "height:40px;\n"
 "background:qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #FE59A8, stop:1 #FEA11B);\n"
 "border: transparent;\n"
 "color:white;\n"
 "border-radius: 20px;\n"
 "font-size: 17px;\n"
+"}\n"
+"#agregarPedido{\n"
+"font-size:15px;\n"
+"border-bottom:2px solid #FE59A8 ;\n"
+"margin-right:100px;\n"
+"margin-left:100px;\n"
+"border-radius:0px;\n"
+"background:none;\n"
+"color: #FE59A8;\n"
 "}")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -113,7 +122,7 @@ class Ui_pedidos(object):
         self.frame_3.setStyleSheet("#frame_3{\n"
 "background:none;\n"
 "}\n"
-"#item{\n"
+"#pedido{\n"
 "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 rgba(254, 89, 168, 0.15), stop:1 rgba(254, 161, 27, 0.15));\n"
 "\n"
 "}")
