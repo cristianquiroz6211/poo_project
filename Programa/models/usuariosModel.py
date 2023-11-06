@@ -42,7 +42,7 @@ class UsuariosModel():
             cursor = self.conn.cursor()
             cursor.execute('SELECT "IdRol" FROM "Usuarios" WHERE "Usuario" = %s', (usuario,))
             user_data = cursor.fetchone()
-            rol = [{"IdRol": row[0]} for row in user_data]
+            rol = user_data[0]
             return rol
             cursor.close()
         except Exception as e:

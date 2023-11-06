@@ -10,15 +10,18 @@ ruta_proyecto = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(ruta_proyecto)
 
 from views.Usuarios.Usuarios_ui import UsersView
+from models.usuariosModel import UsuariosModel
 
 class UsersController:
     def __init__(self):
         self.view = UsersView()
+        self.ModelUser = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
 
+    def show(self, username, password):
+        rol = self.ModelUser.obtener_rol_por_usuario(username)
+        if rol == 1:
+            self.view.show()
 
-    def show(self, username, password,rol):
-        self.view.show()
-        
 
     
 if __name__ == "__main__":
