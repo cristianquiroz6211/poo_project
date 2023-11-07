@@ -72,9 +72,6 @@ class UsuariosModel():
     #Metodo para insertar un nuevo usuario
     def insertar_usuario(self, nombre, usuario, contrasena, telefono, estado, idrol, idempresa):
         try:
-            #pasar de string a int
-            idrol = int(idrol)
-            idempresa = int(idempresa)
             cursor = self.conn.cursor()
             cursor.execute('INSERT INTO "Usuarios" ("Nombre","Usuario","Contrasena","Telefono","Estado","IdRol","IdEmpresa") VALUES(%s,%s,%s,%s,%s,%s,%s)', (nombre, usuario, contrasena, telefono, estado, idrol, idempresa))
             self.conn.commit()

@@ -76,44 +76,64 @@ class AdministradorGeneralView(QtWidgets.QWidget):
         self.contenido = locales_content
         self.layout.replaceWidget(self.layout.itemAt(1).widget(), locales_content)
 
-    
     def mostrar_usuarios(self):
-        self.contenido.hide()
-        
-        # Crear un formulario para agregar usuarios
-        formulario = QtWidgets.QWidget()
-        self.model = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
-        layout = QtWidgets.QFormLayout()
-        
-        nombre_input = QtWidgets.QLineEdit()
-        usuario_input = QtWidgets.QLineEdit()
-        contraseña_input = QtWidgets.QLineEdit()
-        telefono_input = QtWidgets.QLineEdit()
-        
-        tipo_usuario_combo = QtWidgets.QComboBox()
-        tipo_usuario_combo.addItems(['Administrador General', 'Administrador de Local', 'Mesero', 'Cocinero'])
-        
-        id_empresa_input = QtWidgets.QLineEdit()
-        
-        layout.addRow("Nombre:", nombre_input)
-        layout.addRow("Usuario:", usuario_input)
-        layout.addRow("Contraseña:", contraseña_input)
-        layout.addRow("Teléfono:", telefono_input)
-        layout.addRow("Tipo de Usuario:", tipo_usuario_combo)
-        layout.addRow("ID de Empresa:", id_empresa_input)
-        
-        agregar_button = QtWidgets.QPushButton("Agregar Usuario")
-        agregar_button.clicked.connect()
-        
-        layout.addRow(agregar_button)
-        
-        formulario.setLayout(layout)
-        
-        self.contenido = formulario
-        self.layout.replaceWidget(self.layout.itemAt(1).widget(), formulario)
+            self.contenido.hide()
+            
+            # Crear un formulario para agregar usuarios
+            formulario = QtWidgets.QWidget()
+            self.model = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
+            layout = QtWidgets.QFormLayout()
+            
+            nombre_input = QtWidgets.QLineEdit()
+            usuario_input = QtWidgets.QLineEdit()
+            contraseña_input = QtWidgets.QLineEdit()
+            telefono_input = QtWidgets.QLineEdit()
+            
+            tipo_usuario_combo = QtWidgets.QComboBox()
+            tipo_usuario_combo.addItems(['Administrador General', 'Administrador de Local', 'Mesero', 'Cocinero'])
+            
+            id_empresa_input = QtWidgets.QLineEdit()
+            
+            layout.addRow("Nombre:", nombre_input)
+            layout.addRow("Usuario:", usuario_input)
+            layout.addRow("Contraseña:", contraseña_input)
+            layout.addRow("Teléfono:", telefono_input)
+            layout.addRow("Tipo de Usuario:", tipo_usuario_combo)
+            layout.addRow("ID de Empresa:", id_empresa_input)
 
-    
-    
+            agregar_button = QtWidgets.QPushButton("Agregar Usuario")
+
+            def insertar_usuario():
+                nombre = nombre_input.text()
+                usuario = usuario_input.text()
+                contraseña = contraseña_input.text()
+                telefono = telefono_input.text()
+                tipo_usuario = tipo_usuario_combo.currentText()  # Obtener el texto seleccionado
+                id_empresa = id_empresa_input.text()
+
+                # Convertir tipo_usuario a un valor numérico según tus criterios
+                if tipo_usuario == "Administrador General":
+                    tipo_usuario_num = 1
+                elif tipo_usuario == "Administrador de Local":
+                    tipo_usuario_num = 2
+                elif tipo_usuario == "Mesero":
+                    tipo_usuario_num = 3
+                elif tipo_usuario == "Cocinero":
+                    tipo_usuario_num = 4
+                else:
+                    tipo_usuario_num = 0  # Un valor por defecto si no coincide con ninguno
+
+                self.model.insertar_usuario(nombre, usuario, contraseña, telefono, True, tipo_usuario_num, id_empresa)
+
+            agregar_button.clicked.connect(insertar_usuario)
+
+            layout.addRow(agregar_button)
+            
+            formulario.setLayout(layout)
+            
+            self.contenido = formulario
+            self.layout.replaceWidget(self.layout.itemAt(1).widget(), formulario)
+
     def mostrar_estadisticas(self):
         self.contenido.hide()
         estadisticas_content = QtWidgets.QLabel("Estadísticas de la Administración")
