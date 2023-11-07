@@ -4,7 +4,7 @@ import psycopg2
 class UsuariosModel():
     def __init__(self, dbname, user, password, host, port):
         self.conn = psycopg2.connect(
-dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5432        )
+dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432        )
     #Metodo para obtener los usuarios por Usuario
     def obtener_usuarios_por_usuario(self, usuario):
         try:
@@ -55,4 +55,17 @@ dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5
             return empresas
         except Exception as e:
             print(f"Error al obtener empresas: {e}")
+            return False
+
+    #Metodo que me traiga todos los pedidos que ya estan finalizados = 4 ."Pedidos" ("Precio", "FechaYHora", "IdMesa", "IdEstado", "IdMesero")
+    def obtener_pedidos_finalizados(self):
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute('SELECT * FROM "Pedidos" WHERE "IdEstado" = 4')
+            user_data = cursor.fetchall()
+            pedidos = [{"IdPedido": row[0], "Precio": row[1], "FechaYHora": row[2], "IdMesa": row[3], "IdEstado": row[4], "IdMesero": row[5]} for row in user_data]
+            cursor.close()
+            return pedidos
+        except Exception as e:
+            print(f"Error al obtener pedidos: {e}")
             return False

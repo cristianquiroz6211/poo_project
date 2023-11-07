@@ -16,7 +16,7 @@ class LoginApp(QtWidgets.QMainWindow):
         super().__init__()
         self.ui = Ui_IniciarSesion()
         self.ui.setupUi(self)
-        self.controller = LoginController(dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5432)
+        self.controller = LoginController(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
         self.ui.submit.clicked.connect(self.login)
         self.ui.checkBox.stateChanged.connect(lambda: self.controller.toggleMostrarContrasena(self.ui))        
         self.ui.ir_a_pedidos.clicked.connect(self.redirect_to_pedidos)  # Cambia esta línea
