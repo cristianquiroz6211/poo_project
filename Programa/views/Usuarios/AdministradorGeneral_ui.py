@@ -175,8 +175,7 @@ class AdministradorGeneralView(QtWidgets.QWidget):
         self.contenido.hide()
         estadisticas_content = QtWidgets.QLabel("Estadísticas de la Administración")
         #Crear una tabla con las  columnas de ID pedido, Precio, Fecha
-        model = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
-        pedidos = model.obtener_pedidos_finalizados()
+        pedidos = self.model.obtener_pedidos_finalizados()
         resultados_label = QLabel("Pedidos finalizados:")
         resultados_text = QLabel("\n".join([f"{pedido['IdPedido']}: {pedido['Precio']}: {pedido['FechaYHora']}" for pedido in pedidos]))
         layout = QVBoxLayout()
@@ -189,14 +188,11 @@ class AdministradorGeneralView(QtWidgets.QWidget):
     
     def cerrar_sesion(self):
         self.close()
-        from login_ui import LoginView
-        login = LoginView()
-        login.show()
-        
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    ventana = AdministradorGeneralView()
-    ventana.show()
-    sys.exit(app.exec_())
+        import sys
+        import os
+        ruta_proyecto = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        sys.path.append(ruta_proyecto)
+        from main import LoginApp
+    
+        window = LoginApp()
+        window.show()

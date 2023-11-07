@@ -49,3 +49,11 @@ class CocineroView(QtWidgets.QWidget):
     
     def cerrar_sesion(self):
         self.close()
+        import sys
+        import os
+        ruta_proyecto = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        sys.path.append(ruta_proyecto)
+        from main import LoginApp
+    
+        window = LoginApp()
+        window.show()
