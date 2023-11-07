@@ -22,14 +22,12 @@ class AdministradorGeneralView(QtWidgets.QWidget):
         self.btn_inicio = QtWidgets.QPushButton("Inicio")
         self.btn_locales = QtWidgets.QPushButton("Locales")
         self.btn_usuarios = QtWidgets.QPushButton("Usuarios")
-        self.btn_productos = QtWidgets.QPushButton("Productos")
         self.btn_estadisticas = QtWidgets.QPushButton("Estadísticas")
         self.btn_logout = QtWidgets.QPushButton("Cerrar Sesión")
         
         menu_layout.addWidget(self.btn_inicio)
         menu_layout.addWidget(self.btn_locales)
         menu_layout.addWidget(self.btn_usuarios)
-        menu_layout.addWidget(self.btn_productos)
         menu_layout.addWidget(self.btn_estadisticas)
         menu_layout.addWidget(self.btn_logout)
         
@@ -37,7 +35,6 @@ class AdministradorGeneralView(QtWidgets.QWidget):
         self.btn_inicio.clicked.connect(self.mostrar_inicio)
         self.btn_locales.clicked.connect(self.mostrar_locales)
         self.btn_usuarios.clicked.connect(self.mostrar_usuarios)
-        self.btn_productos.clicked.connect(self.mostrar_productos)
         self.btn_estadisticas.clicked.connect(self.mostrar_estadisticas)
         self.btn_logout.clicked.connect(self.cerrar_sesion)
         
@@ -71,7 +68,6 @@ class AdministradorGeneralView(QtWidgets.QWidget):
         resultados_label = QLabel("Empresas y sus identificaciones:")
         resultados_text = QLabel("\n".join([f"{empresa['Empresa']}: {empresa['Identificacion']}" for empresa in empresas]))
 
-        # Agregar los widgets de texto al contenido del widget
         layout = QVBoxLayout()
         layout.addWidget(resultados_label)
         layout.addWidget(resultados_text)
@@ -86,13 +82,6 @@ class AdministradorGeneralView(QtWidgets.QWidget):
         self.contenido = usuarios_content
         self.layout.replaceWidget(self.layout.itemAt(1).widget(), usuarios_content)
     
-    def mostrar_productos(self):
-        self.contenido.hide()
-        # Aquí puedes mostrar el contenido relacionado con "Productos"
-        # Por ejemplo, una etiqueta con el texto "Gestión de Productos":
-        productos_content = QtWidgets.QLabel("Gestión de Productos")
-        self.contenido = productos_content
-        self.layout.replaceWidget(self.layout.itemAt(1).widget(), productos_content)
     
     def mostrar_estadisticas(self):
         self.contenido.hide()

@@ -56,3 +56,27 @@ dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5
         except Exception as e:
             print(f"Error al obtener empresas: {e}")
             return False
+        
+    def crear_cocinero(self):
+        nombre = input("Ingrese el nombre del cocinero: ")
+        usuarioN = input("Ingrese el nombre de usuario del cocinero: ")
+        contrasena = input("Ingrese la contraseña del cocinero: ")
+        telefono = input("Ingrese el número de teléfono del cocinero: ")
+        idEmpresa = input("Ingrese el ID de la empresa del cocinero: ")
+        
+        try:
+            with self.conn.cursor() as cursor:
+                idRol = 3
+                estado = True
+                
+                # Llama a la función para crear el cocinero en la base de datos
+                sql = 'INSERT INTO "Usuarios" ("Nombre","Usuario","Contrasena","Telefono","Estado","IdRol","IdEmpresa") VALUES(%s,%s,%s,%s,%s,%s,%s);'
+                cursor.execute(sql, (nombre, usuarioN, contrasena, telefono, estado, idRol, idEmpresa))
+                
+            self.conn.commit()
+            print("Cocinero creado exitosamente")
+            return  # Regresa al punto de llamada de la función
+
+        except psycopg2.Error as e:
+            print(f"Error al crear cocinero: {str(e)}")
+            return False

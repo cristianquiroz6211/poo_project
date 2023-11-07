@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets
+from   models.usuariosModel import UsuariosModel
 
 class AdministradorLocalView(QtWidgets.QWidget):
     def __init__(self):
@@ -76,6 +77,7 @@ class AdministradorLocalView(QtWidgets.QWidget):
         agregar_cocineros_content = QtWidgets.QLabel("Gestión de Agregar Cocineros")
         self.layout.addWidget(agregar_cocineros_content)
         self.contenido = agregar_cocineros_content
+        
     
     def cerrar_sesion(self):
         self.close()
