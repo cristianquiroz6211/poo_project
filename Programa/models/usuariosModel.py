@@ -3,8 +3,7 @@ import psycopg2
 
 class UsuariosModel():
     def __init__(self, dbname, user, password, host, port):
-        self.conn = psycopg2.connect(
-dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432        )
+        self.conn = psycopg2.connect(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432        )
     #Metodo para obtener los usuarios por Usuario
     def obtener_usuarios_por_usuario(self, usuario):
         try:
@@ -56,7 +55,20 @@ dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5
         except Exception as e:
             print(f"Error al obtener empresas: {e}")
             return False
-        
+    
+        #Metodo que me traiga todos los pedidos que ya estan finalizados
+    def obtener_pedidos_finalizados(self):
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute('SELECT * FROM "Pedidos" WHERE "IdEstado" = %s', (4,))
+            pedidos_data = cursor.fetchall()
+            pedidos = [{"IdPedido": row[0],"Precio": row[1], "FechaYHora":row[2]} for row in pedidos_data]
+            return pedidos
+            cursor.close()
+        except Exception as e:
+            print(f"Error al obtener pedidos: {e}")
+            return False
+
     def crear_cocinero(self):
         nombre = input("Ingrese el nombre del cocinero: ")
         usuarioN = input("Ingrese el nombre de usuario del cocinero: ")
@@ -80,3 +92,4 @@ dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5
         except psycopg2.Error as e:
             print(f"Error al crear cocinero: {str(e)}")
             return False
+        
