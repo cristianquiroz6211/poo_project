@@ -59,7 +59,7 @@ class AdministradorGeneralView(QtWidgets.QWidget):
         self.layout.replaceWidget(self.layout.itemAt(1).widget(), locales_content)
 
         # Crear una instancia de la clase UsuariosModel
-        model = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5432)
+        model = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
 
         # Llamar a la función obtener_Empresas y almacenar el resultado en una variable
         empresas = model.obtener_Empresas()
@@ -72,7 +72,10 @@ class AdministradorGeneralView(QtWidgets.QWidget):
         layout.addWidget(resultados_label)
         layout.addWidget(resultados_text)
         locales_content.setLayout(layout)
-            
+
+        self.contenido = locales_content
+        self.layout.replaceWidget(self.layout.itemAt(1).widget(), locales_content)
+
     
     def mostrar_usuarios(self):
         self.contenido.hide()
@@ -85,9 +88,17 @@ class AdministradorGeneralView(QtWidgets.QWidget):
     
     def mostrar_estadisticas(self):
         self.contenido.hide()
-        # Aquí puedes mostrar el contenido relacionado con "Estadísticas"
-        # Por ejemplo, una etiqueta con el texto "Estadísticas de la Administración":
         estadisticas_content = QtWidgets.QLabel("Estadísticas de la Administración")
+        #Crear una tabla con las  columnas de ID pedido, Precio, Fecha
+        model = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
+        pedidos = model.obtener_pedidos_finalizados()
+        resultados_label = QLabel("Pedidos finalizados:")
+        resultados_text = QLabel("\n".join([f"{pedido['IdPedido']}: {pedido['Precio']}: {pedido['FechaYHora']}" for pedido in pedidos]))
+        layout = QVBoxLayout()
+        layout.addWidget(resultados_label)
+        layout.addWidget(resultados_text)
+        estadisticas_content.setLayout(layout)
+
         self.contenido = estadisticas_content
         self.layout.replaceWidget(self.layout.itemAt(1).widget(), estadisticas_content)
     
