@@ -104,20 +104,15 @@ class UsuariosModel():
         except psycopg2.Error as e:
             print(f"Error al crear cocinero: {str(e)}")
             return False
-
-#Hacer una consulta sql innrer join para obtener el nombre de la empresa apartir del idempresa de la tabla usuarios
-# SELECT "Usuarios"."Nombre", "Empresas"."NombreEmpresa"
-# FROM "Usuarios"
-# INNER JOIN "Empresas" ON "Usuarios"."IdEmpresa" = "Empresas"."IdEmpresa";
-
-    def obtener_usuarios(self):
+        
+    def mostrarPrecio(self):
         try:
             cursor = self.conn.cursor()
-            cursor.execute('SELECT  "Usuarios"."Nombre", "Usuarios"."Telefono", "Usuarios"."Estado", "Usuarios"."IdRol", "Usuarios"."IdEmpresa", "Empresas"."Empresa" FROM "Usuarios" INNER JOIN "Empresas" ON "Usuarios"."IdEmpresa" = "Empresas"."IdEmpresa"')
+            cursor.execute('SELECT "NombrePlato", "Precio" FROM "platos"')
             user_data = cursor.fetchall()
-            usuarios = [{"Nombre": row[0], "Telefono": row[1], "Estado": row[2], "IdRol": row[3], "IdEmpresa": row[4], "Empresa": row[5]} for row in user_data]
-            return usuarios
+            precio = [{"plato": row[0], "precio": row[1]} for row in user_data]
             cursor.close()
+            return precio
         except Exception as e:
-            print(f"Error al obtener usuarios: {e}")
+            print(f"Error al obtener precio: {e}")
             return False
