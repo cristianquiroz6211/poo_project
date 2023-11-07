@@ -101,13 +101,6 @@ class AdministradorLocalView(QtWidgets.QWidget):
 
       self.contenido = QtWidgets.QWidget()
       self.layout.addWidget(self.contenido)
-
-
-
-
-        
-
-        
     
     def cerrar_sesion(self):
         self.close()
