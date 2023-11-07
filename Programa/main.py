@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import QtWidgets
 from views.login_ui import Ui_IniciarSesion
-from views.pedidos.pedidos_uicopy import Ui_pedidos
+from views.pedidos.pedidos_ui import Ui_pedidos
 from controllers.loginController import LoginController
 from controllers.UsuariosController import UsersController
 
