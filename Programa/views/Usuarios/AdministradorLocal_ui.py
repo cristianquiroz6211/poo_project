@@ -72,11 +72,59 @@ class AdministradorLocalView(QtWidgets.QWidget):
 
     def mostrar_agregar_cocineros(self):
         self.contenido.hide()
-        # Aquí puedes mostrar el contenido relacionado con "Agregar Cocineros"
-        # Por ejemplo, una etiqueta con el texto "Gestión de Agregar Cocineros":
-        agregar_cocineros_content = QtWidgets.QLabel("Gestión de Agregar Cocineros")
-        self.layout.addWidget(agregar_cocineros_content)
-        self.contenido = agregar_cocineros_content
+
+        # Crear etiquetas y campos de entrada de texto para ingresar datos del cocinero
+        nombre_label = QtWidgets.QLabel("Nombre del cocinero:")
+        nombre_input = QtWidgets.QLineEdit()
+        usuario_label = QtWidgets.QLabel("Nombre de usuario:")
+        usuario_input = QtWidgets.QLineEdit()
+        contrasena_label = QtWidgets.QLabel("Contraseña:")
+        contrasena_input = QtWidgets.QLineEdit()
+        telefono_label = QtWidgets.QLabel("Número de teléfono:")
+        telefono_input = QtWidgets.QLineEdit()
+        idEmpresa_label = QtWidgets.QLabel("ID de la empresa:")
+        idEmpresa_input = QtWidgets.QLineEdit()
+
+        guardar_button = QtWidgets.QPushButton("Guardar Cocinero")
+
+        # Agregar etiquetas y campos de entrada al diseño
+        self.layout.addWidget(nombre_label)
+        self.layout.addWidget(nombre_input)
+        self.layout.addWidget(usuario_label)
+        self.layout.addWidget(usuario_input)
+        self.layout.addWidget(contrasena_label)
+        self.layout.addWidget(contrasena_input)
+        self.layout.addWidget(telefono_label)
+        self.layout.addWidget(telefono_input)
+        self.layout.addWidget(idEmpresa_label)
+        self.layout.addWidget(idEmpresa_input)
+        self.layout.addWidget(guardar_button)
+
+        # Definir la función para guardar el cocinero
+        def guardar_cocinero():
+            nombre = nombre_input.text()
+            usuarioN = usuario_input.text()
+            contrasena = contrasena_input.text()
+            telefono = telefono_input.text()
+            idEmpresa = idEmpresa_input.text()
+
+            # Llamar a la clase UsuariosModel para agregar el cocinero a la base de datos
+            usuarios_model = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5432)
+            if usuarios_model.crear_cocinero(nombre, usuarioN, contrasena, telefono, idEmpresa):
+                print("Cocinero creado exitosamente")
+            else:
+                print("Error al crear cocinero")
+
+        guardar_button.clicked.connect(guardar_cocinero)
+
+        self.contenido = QtWidgets.QWidget()
+        self.layout.addWidget(self.contenido)
+
+
+
+
+        
+
         
     
     def cerrar_sesion(self):
