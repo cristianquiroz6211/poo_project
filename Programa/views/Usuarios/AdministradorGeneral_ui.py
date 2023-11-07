@@ -79,11 +79,39 @@ class AdministradorGeneralView(QtWidgets.QWidget):
     
     def mostrar_usuarios(self):
         self.contenido.hide()
-        # Aquí puedes mostrar el contenido relacionado con "Usuarios"
-        # Por ejemplo, una etiqueta con el texto "Gestión de Usuarios":
-        usuarios_content = QtWidgets.QLabel("Gestión de Usuarios")
-        self.contenido = usuarios_content
-        self.layout.replaceWidget(self.layout.itemAt(1).widget(), usuarios_content)
+        
+        # Crear un formulario para agregar usuarios
+        formulario = QtWidgets.QWidget()
+        self.model = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
+        layout = QtWidgets.QFormLayout()
+        
+        nombre_input = QtWidgets.QLineEdit()
+        usuario_input = QtWidgets.QLineEdit()
+        contraseña_input = QtWidgets.QLineEdit()
+        telefono_input = QtWidgets.QLineEdit()
+        
+        tipo_usuario_combo = QtWidgets.QComboBox()
+        tipo_usuario_combo.addItems(['Administrador General', 'Administrador de Local', 'Mesero', 'Cocinero'])
+        
+        id_empresa_input = QtWidgets.QLineEdit()
+        
+        layout.addRow("Nombre:", nombre_input)
+        layout.addRow("Usuario:", usuario_input)
+        layout.addRow("Contraseña:", contraseña_input)
+        layout.addRow("Teléfono:", telefono_input)
+        layout.addRow("Tipo de Usuario:", tipo_usuario_combo)
+        layout.addRow("ID de Empresa:", id_empresa_input)
+        
+        agregar_button = QtWidgets.QPushButton("Agregar Usuario")
+        agregar_button.clicked.connect()
+        
+        layout.addRow(agregar_button)
+        
+        formulario.setLayout(layout)
+        
+        self.contenido = formulario
+        self.layout.replaceWidget(self.layout.itemAt(1).widget(), formulario)
+
     
     
     def mostrar_estadisticas(self):

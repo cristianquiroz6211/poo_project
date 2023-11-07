@@ -68,6 +68,21 @@ class UsuariosModel():
         except Exception as e:
             print(f"Error al obtener pedidos: {e}")
             return False
+    
+    #Metodo para insertar un nuevo usuario
+    def insertar_usuario(self, nombre, usuario, contrasena, telefono, estado, idrol, idempresa):
+        try:
+            #pasar de string a int
+            idrol = int(idrol)
+            idempresa = int(idempresa)
+            cursor = self.conn.cursor()
+            cursor.execute('INSERT INTO "Usuarios" ("Nombre","Usuario","Contrasena","Telefono","Estado","IdRol","IdEmpresa") VALUES(%s,%s,%s,%s,%s,%s,%s)', (nombre, usuario, contrasena, telefono, estado, idrol, idempresa))
+            self.conn.commit()
+            cursor.close()
+            return True
+        except Exception as e:
+            print(f"Error al insertar usuario: {e}")
+            return False
 
     def crear_cocinero(self):
         nombre = input("Ingrese el nombre del cocinero: ")
