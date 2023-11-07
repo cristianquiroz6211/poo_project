@@ -1,4 +1,6 @@
 from PyQt5 import QtWidgets
+from   models.usuariosModel import UsuariosModel
+from PyQt5.QtWidgets import QLabel, QVBoxLayout, QWidget
 
 class AdministradorGeneralView(QtWidgets.QWidget):
     def __init__(self):
@@ -56,11 +58,25 @@ class AdministradorGeneralView(QtWidgets.QWidget):
     
     def mostrar_locales(self):
         self.contenido.hide()
-        # Aquí puedes mostrar el contenido relacionado con "Locales"
-        # Por ejemplo, una etiqueta con el texto "Gestión de Locales":
-        locales_content = QtWidgets.QLabel("Gestión de Locales")
-        self.contenido = locales_content
+        locales_content = QWidget()
         self.layout.replaceWidget(self.layout.itemAt(1).widget(), locales_content)
+
+        # Crear una instancia de la clase UsuariosModel
+        model = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5432)
+
+        # Llamar a la función obtener_Empresas y almacenar el resultado en una variable
+        empresas = model.obtener_Empresas()
+
+        # Crear un widget de texto para mostrar los resultados
+        resultados_label = QLabel("Empresas y sus identificaciones:")
+        resultados_text = QLabel("\n".join([f"{empresa['Empresa']}: {empresa['Identificacion']}" for empresa in empresas]))
+
+        # Agregar los widgets de texto al contenido del widget
+        layout = QVBoxLayout()
+        layout.addWidget(resultados_label)
+        layout.addWidget(resultados_text)
+        locales_content.setLayout(layout)
+            
     
     def mostrar_usuarios(self):
         self.contenido.hide()

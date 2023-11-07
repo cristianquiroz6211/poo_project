@@ -19,7 +19,7 @@ class UsersController:
         self.viewAdminGeneral = AdministradorGeneralView()
         self.viewAdminLocal = AdministradorLocalView()
         self.viewCocinero = CocineroView()
-        self.ModelUser = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
+        self.ModelUser = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5432)
 
     def show(self, username, password):
         rol = self.ModelUser.obtener_rol_por_usuario(username)

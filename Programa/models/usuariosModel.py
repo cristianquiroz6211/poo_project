@@ -4,12 +4,7 @@ import psycopg2
 class UsuariosModel():
     def __init__(self, dbname, user, password, host, port):
         self.conn = psycopg2.connect(
-            dbname=dbname,
-            user=user,
-            password=password,
-            host=host,
-            port=port
-        )
+dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5432        )
     #Metodo para obtener los usuarios por Usuario
     def obtener_usuarios_por_usuario(self, usuario):
         try:
@@ -47,4 +42,17 @@ class UsuariosModel():
             cursor.close()
         except Exception as e:
             print(f"Error al obtener rol: {e}")
+            return False
+
+    def obtener_Empresas(self):
+        # Muestra la empresa y su identificación
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute('SELECT "Empresa","Identificacion" FROM "Empresas"')
+            user_data = cursor.fetchall()
+            empresas = [{"Empresa": row[0], "Identificacion": row[1]} for row in user_data]
+            cursor.close()
+            return empresas
+        except Exception as e:
+            print(f"Error al obtener empresas: {e}")
             return False
