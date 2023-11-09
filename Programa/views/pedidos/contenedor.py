@@ -7,7 +7,7 @@ ruta_proyecto = os.path.abspath(os.path.join(os.path.dirname(__file__), '...'))
 sys.path.append(ruta_proyecto)
 #cOREGIR CANBIOS
 
-from controllers.pedidosController import ControladorRestaurante
+from controllers.pedidosController import ControladorPedidos
 class Contenedor(QtWidgets.QFrame):
     def __init__(self, identificador):
         super().__init__()
@@ -24,7 +24,7 @@ class Contenedor(QtWidgets.QFrame):
 
         # Columna 1: ComboBox de Restaurante
         self.restaurante = QtWidgets.QComboBox()
-        self.controlador_restaurante = ControladorRestaurante()
+        self.controlador_restaurante = ControladorPedidos()
         restaurantes = self.controlador_restaurante.obtener_restaurantes()
         self.restaurante.addItems(restaurantes)
         self.layout.addWidget(self.restaurante, 1, 0)

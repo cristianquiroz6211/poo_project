@@ -8,12 +8,17 @@ ruta_proyecto = os.path.abspath(os.path.join(os.path.dirname(__file__), '...'))
 sys.path.append(ruta_proyecto)
 #cOREGIR CANBIOS
 from contenedor import Contenedor
-from controllers.pedidosController import ControladorRestaurante
+from controllers.pedidosController import ControladorPedidos
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_pedidos(object):
     def setupUi(self, pedidos):
+        self.restaurantes = []  # Lista para almacenar los restaurantes seleccionados
+        self.productos = []    # Lista para almacenar los productos seleccionados
+        self.notas = []        # Lista para almacenar las notas ingresadas
+        
+        
         pedidos.setObjectName("pedidos")
         pedidos.resize(817, 523)
         pedidos.setMinimumSize(QtCore.QSize(817, 523))
@@ -126,6 +131,24 @@ class Ui_pedidos(object):
         self.frame_3.setObjectName("frame_3")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.frame_3)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
+        
+        self.mesa_label = QtWidgets.QLabel("Mesa:")
+        self.mesa_combobox = QtWidgets.QComboBox()
+        self.obtenermesas = ControladorPedidos()
+        mesas = self.obtenermesas.obtener_mesas()
+        self.mesa_combobox.addItems(mesas)
+
+        self.mesero_label = QtWidgets.QLabel("Mesero:")
+        self.mesero_combobox = QtWidgets.QComboBox()
+        self.obtenermeseros = ControladorPedidos()
+        meseros = self.obtenermeseros.obtener_meseros()
+        self.mesero_combobox.addItems(meseros)
+
+        self.verticalLayout_2.addWidget(self.mesa_label)
+        self.verticalLayout_2.addWidget(self.mesa_combobox)
+        self.verticalLayout_2.addWidget(self.mesero_label)
+        self.verticalLayout_2.addWidget(self.mesero_combobox)
+               
         self.scrollArea = QtWidgets.QScrollArea(self.frame_3)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
@@ -172,12 +195,14 @@ class Ui_pedidos(object):
         self.submit.setSizePolicy(sizePolicy)
         self.submit.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.submit.setObjectName("submit")
+        self.submit.clicked.connect(self.enviar_pedido)
         self.verticalLayout.addWidget(self.submit)
         self.horizontalLayout.addWidget(self.frame)
         pedidos.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(pedidos)
         QtCore.QMetaObject.connectSlotsByName(pedidos)
+        
 
     def retranslateUi(self, pedidos):
         _translate = QtCore.QCoreApplication.translate
@@ -192,7 +217,18 @@ class Ui_pedidos(object):
         contenedor = Contenedor(self.contador)
         self.contenedor_layout.addWidget(contenedor)
         self.contador += 1
+        
+        self.restaurantes.append(contenedor.restaurante)
+        self.productos.append(contenedor.producto)
+        self.notas.append(contenedor.line_edit)
+    def enviar_pedido(self):
+        controlador_pedidos = ControladorPedidos()
 
+    # Llama a la función del controlador para procesar los pedidos
+        controlador_pedidos.procesar_pedidos(self.restaurantes, self.productos, self.notas,self.mesa_combobox.currentText(),self.mesero_combobox.currentText())
+        
+        
+   
 
 if __name__ == "__main__":
     import sys
