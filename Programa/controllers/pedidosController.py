@@ -48,6 +48,6 @@ class ControladorPedidos:
             #producto_seleccionado = producto.currentText()
             nota_ingresada = nota.text()
             self.modelo.realizar_subpedido(id_pedido, idprod, nota_ingresada)
-            print(f"Restaurante seleccionado: {restaurante_seleccionado}, Producto seleccionado: {idprod}, Nota: {nota_ingresada}")  
+            #print(f"Restaurante seleccionado: {restaurante_seleccionado}, Producto seleccionado: {idprod}, Nota: {nota_ingresada}")  
             
 

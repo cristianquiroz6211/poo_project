@@ -14,10 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_pedidos(object):
     def setupUi(self, pedidos):
+        
+        
         self.restaurantes = []  # Lista para almacenar los restaurantes seleccionados
         self.productos = []    # Lista para almacenar los productos seleccionados
         self.notas = []        # Lista para almacenar las notas ingresadas
-        
+        self.contenedores = []
         
         pedidos.setObjectName("pedidos")
         pedidos.resize(817, 523)
@@ -168,6 +170,7 @@ class Ui_pedidos(object):
     "QLabel{\n"
     "background:none;\n"
     "}")
+       
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 470, 210))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
@@ -216,25 +219,70 @@ class Ui_pedidos(object):
     def agregar_contenedor(self):
         contenedor = Contenedor(self.contador)
         self.contenedor_layout.addWidget(contenedor)
+        self.contenedores.append(contenedor) 
         self.contador += 1
         
         self.restaurantes.append(contenedor.restaurante)
         self.productos.append(contenedor.producto)
         self.notas.append(contenedor.line_edit)
     def enviar_pedido(self):
-        controlador_pedidos = ControladorPedidos()
+            try:
+                # Lógica para procesar el pedido
+                controlador_pedidos = ControladorPedidos()
+                controlador_pedidos.procesar_pedidos(
+                    self.restaurantes, self.productos, self.notas,
+                    self.mesa_combobox.currentText(), self.mesero_combobox.currentText()
+                )
 
-    # Llama a la función del controlador para procesar los pedidos
-        controlador_pedidos.procesar_pedidos(self.restaurantes, self.productos, self.notas,self.mesa_combobox.currentText(),self.mesero_combobox.currentText())
+                # Reiniciar la pantalla después de procesar el pedido
+                self.reiniciar_pantalla()
+
+            except Exception as e:
+                # Manejar excepciones según sea necesario
+                print(f"Error al procesar el pedido: {e}")
+
+    def reiniciar_pantalla(self):
+        self.mesa_combobox.setCurrentIndex(0)
+        self.mesero_combobox.setCurrentIndex(0)
+
+        # Limpiar contenedores en el scrollArea
+        for contenedor in self.contenedores:
+            contenedor.hide()
+
+        # Limpiar listas
+        self.restaurantes.clear()
+        self.productos.clear()
+        self.notas.clear()
+
+        # Restablecer el contador y agregar un nuevo contenedor inicial
+        self.contador = 0
+        self.agregar_contenedor()
+
+        # Mostrar la ventana principal
+        self.centralwidget.show()
+
+
+    
+    
         
+    def limpiar_contenedores(self):
+        for i in reversed(range(self.contenedor_layout.count())):
+            self.contenedor_layout.itemAt(i).widget().deleteLater()
+
+    @staticmethod
+    def obtener_instancia():
+        nueva_instancia = Ui_pedidos()
+        nueva_instancia.setupUi(QtWidgets.QMainWindow())
+        return nueva_instancia
         
    
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    pedidos = QtWidgets.QMainWindow()
-    ui = Ui_pedidos()
-    ui.setupUi(pedidos)
-    pedidos.show()
+    ui = Ui_pedidos.obtener_instancia()
+    ui.show()
     sys.exit(app.exec_())
+
+
+
