@@ -114,3 +114,4 @@ class AdministradorLocalView(QtWidgets.QWidget):
         window.show()
 
 
+
