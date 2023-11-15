@@ -3,7 +3,7 @@ import psycopg2
 
 class UsuariosModel():
     def __init__(self, dbname, user, password, host, port):
-        self.conn = psycopg2.connect(dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5432        )
+        self.conn = psycopg2.connect(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432        )
     #Metodo para obtener los usuarios por Usuario
     def obtener_usuarios_por_usuario(self, usuario):
         try:
