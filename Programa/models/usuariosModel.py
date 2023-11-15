@@ -3,7 +3,7 @@ import psycopg2
 
 class UsuariosModel():
     def __init__(self, dbname, user, password, host, port):
-        self.conn = psycopg2.connect(dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5432        )
+        self.conn = psycopg2.connect(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432        )
     #Metodo para obtener los usuarios por Usuario
     def obtener_usuarios_por_usuario(self, usuario):
         try:
@@ -115,4 +115,16 @@ class UsuariosModel():
             return precio
         except Exception as e:
             print(f"Error al obtener precio: {e}")
+            return False
+
+    def obtener_usuarios(self):
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute('SELECT  "Usuarios"."Nombre", "Usuarios"."Telefono", "Usuarios"."Estado", "Usuarios"."IdRol", "Usuarios"."IdEmpresa", "Empresas"."Empresa" FROM "Usuarios" INNER JOIN "Empresas" ON "Usuarios"."IdEmpresa" = "Empresas"."IdEmpresa"')
+            user_data = cursor.fetchall()
+            usuarios = [{"Nombre": row[0], "Telefono": row[1], "Estado": row[2], "IdRol": row[3], "IdEmpresa": row[4], "Empresa": row[5]} for row in user_data]
+            return usuarios
+            cursor.close()
+        except Exception as e:
+            print(f"Error al obtener usuarios: {e}")
             return False

@@ -20,7 +20,6 @@ class AdministradorLocalView(QtWidgets.QWidget):
         self.btn_logout = QtWidgets.QPushButton("Cerrar Sesión")
 
         self.btn_inicio.clicked.connect(self.mostrar_inicio)
-        self.btn_productos.clicked.connect(self.mostrar_productos)
         self.btn_estadisticas.clicked.connect(self.mostrar_estadisticas)
         self.btn_agregar_cocineros.clicked.connect(self.mostrar_agregar_cocineros)
         self.btn_logout.clicked.connect(self.cerrar_sesion)
@@ -42,8 +41,7 @@ class AdministradorLocalView(QtWidgets.QWidget):
         inicio_content = QtWidgets.QLabel("Página de Inicio")
         self.layout.addWidget(inicio_content)
         self.contenido = inicio_content
-    
-    
+
     def mostrar_estadisticas(self):
        self.contenido.hide()
        # Aquí puedes mostrar el contenido relacionado con "Estadisticas"
@@ -91,7 +89,7 @@ class AdministradorLocalView(QtWidgets.QWidget):
           idEmpresa = idEmpresa_input.text()
 
           # Llamar a la clase UsuariosModel para agregar el cocinero a la base de datos
-          usuarios_model = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="2919", host="localhost", port=5432)
+          usuarios_model = UsuariosModel(dbname="FoodAlfa.V4", user="postgres", password="0000", host="localhost", port=5432)
           if usuarios_model.crear_cocinero(nombre, usuarioN, contrasena, telefono, idEmpresa):
               print("Cocinero creado exitosamente")
           else:
@@ -112,5 +110,6 @@ class AdministradorLocalView(QtWidgets.QWidget):
     
         window = LoginApp()
         window.show()
+
 
 
