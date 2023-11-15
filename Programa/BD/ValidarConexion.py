@@ -1,6 +1,6 @@
 import os
-from BaseDeDatos.conexionDB import *
-from BaseDeDatos.Consultas import *
+from BD.conexionDB import *
+from BD.Consultas import *
 from AdminGeneral.IndexAG import menuAG
 from AdminLocal.IndexAL import menuAL
 from Cocinero.IndexC import menuC
@@ -12,7 +12,7 @@ from plataformaPedidos.menuPedidos import *
 
 
 #conexion con la base de datos
-conexion = BaseDatos("localhost",5432,"postgres","2919","FoodAlfa.V3")
+conexion = BaseDatos("localhost",5432,"postgres","0000","FoodAlfa.V4")
 
 #Variables de las consultas de la base de datos
 id = ""

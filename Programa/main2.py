@@ -1,5 +1,5 @@
 import os
-from BaseDeDatos.ValidarConexion import *
+from BD.ValidarConexion import *
 
 # Funcion para limpiar la pantalla
 
